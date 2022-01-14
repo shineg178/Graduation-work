@@ -31,7 +31,7 @@ const init = {
     return index;
   }
 };
-
+console.log(init.monList(2));
 const $calBody = document.querySelector('.cal-body');
 const $btnNext = document.querySelector('.btn-cal.next');
 const $btnPrev = document.querySelector('.btn-cal.prev');
