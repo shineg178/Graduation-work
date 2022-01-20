@@ -2,8 +2,10 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
-    <script type="text/javascript" src="test.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="work.css">
     
@@ -18,7 +20,7 @@
     
 </head>
 <body>
-  <script type="text/javascript">  
+  <script>  
     function scroll_follow( id )  
     {
       $(window).scroll(function( )  //스크롤이 움직일때마다 이벤트 발생
@@ -66,39 +68,31 @@
     </section>
 
     <section class="main">
-        <div class="container"  >
-            <div class="my-calendar clearfix">
-              <div class="clicked-date">
-                <div class="cal-day"></div>
-                <div class="cal-date"></div>
-              </div>
-              <div class="calendar-box">
-                <div class="ctr-box clearfix">
-                  <button type="button" title="prev" class="btn-cal prev">
-                  </button>
-                  <span class="cal-month"></span>
-                  <span class="cal-year"></span>
-                  <button type="button" title="next" class="btn-cal next">
-                  </button>
-                </div>
-                <table class="cal-table">
-                  <thead>
-                    <tr>
-                      <th>S</th>
-                      <th>M</th>
-                      <th>T</th>
-                      <th>W</th>
-                      <th>T</th>
-                      <th>F</th>
-                      <th>S</th>
-                    </tr>
-                  </thead>
-                  <tbody class="cal-body"></tbody>
-                </table>
-              </div>
-            </div>
-            <!-- // .my-calendar -->
+      <div class="calendar">
+        <div class="calender-header">
+          <div class="year-month"></div>
+          <div class="calender-nav">
+            <button class="calender-nav-btn go-prev" onclick="prevMonth()">&lt;</button>
+            <button class="calender-nav-btn go-today" onclick="goToday()">Today</button>
+            <button class="calender-nav-btn go-next" onclick="nextMonth()">&gt;</button>
           </div>
+        </div>
+        <div class="calender-main">
+          <div class="calender-days">
+            <div class="calender-day">일</div>
+            <div class="calender-day">월</div>
+            <div class="calender-day">화</div>
+            <div class="calender-day">수</div>
+            <div class="calender-day">목</div>
+            <div class="calender-day">금</div>
+            <div class="calender-day">토</div>
+          </div>
+          <div class="calender-dates"></div>
+        </div>
+      </div>
+    
+    
+      
 
         <div class="sidebar"style = "position:absolute;right:30px;top:150px;">
             <ul>
@@ -113,6 +107,80 @@
         </div>
             
     </section>
+    
+    <script>
+      let date = new Date();
+
+const renderCalender = () => {
+  const viewYear = date.getFullYear();
+  const viewMonth = date.getMonth();
+
+  document.querySelector('.year-month').textContent = `${viewYear}년 ${viewMonth + 1}월`;
+
+  const prevLast = new Date(viewYear, viewMonth, 0);
+  const thisLast = new Date(viewYear, viewMonth + 1, 0);
+
+  const PLDate = prevLast.getDate();
+  const PLDay = prevLast.getDay();
+
+  const TLDate = thisLast.getDate();
+  const TLDay = thisLast.getDay();
+
+  const prevDates = [];
+  const thisDates = [...Array(TLDate + 1).keys()].slice(1);
+  const nextDates = [];
+
+  if (PLDay !== 6) {
+    for (let i = 0; i < PLDay + 1; i++) {
+      prevDates.unshift(PLDate - i);
+    }
+  }
+
+  for (let i = 1; i < 7 - TLDay; i++) {
+    nextDates.push(i);
+  }
+
+  const dates = prevDates.concat(thisDates, nextDates);
+  const firstDateIndex = dates.indexOf(1);
+  const lastDateIndex = dates.lastIndexOf(TLDate);
+
+  dates.forEach((date, i) => {
+    const condition = i >= firstDateIndex && i < lastDateIndex + 1
+                      ? 'this'
+                      : 'other';
+    dates[i] = `<div class="calender-date"><span class=${condition}>${date}</span></div>`;
+  });
+
+  document.querySelector('.calender-dates').innerHTML = dates.join('');
+
+  const today = new Date();
+  if (viewMonth === today.getMonth() && viewYear === today.getFullYear()) {
+    for (let date of document.querySelectorAll('.this')) {
+      if (+date.innerText === today.getDate()) {
+        date.classList.add('today');
+        break;
+      }
+    }
+  }
+};
+
+renderCalender();
+
+const prevMonth = () => {
+  date.setMonth(date.getMonth() - 1);
+  renderCalender();
+};
+
+const nextMonth = () => {
+  date.setMonth(date.getMonth() + 1);
+  renderCalender();
+};
+
+const goToday = () => {
+  date = new Date();
+  renderCalender();
+};
+    </script>
     
     <div class="con">
       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
