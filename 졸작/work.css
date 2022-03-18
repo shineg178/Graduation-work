@@ -27,7 +27,7 @@
   
   .main{display:flex; justify-content: space-around; flex-direction:row }
   .main .contents{width:800px; height: 500px; margin:20px; background-image:url(./image/달력.png); width: 70%; height: 996px;}
-  .main .sidebar{width:100px ;display:flex; flex-direction: column;margin:20px; }
+  .main .sidebar{width:100px ;display:flex; flex-direction: column; margin:20px; }
   .main .sidebar a{margin:10px;}
   
   .hidden a{cursor: pointer;}
