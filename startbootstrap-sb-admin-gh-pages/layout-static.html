@@ -116,15 +116,15 @@
                                 <button id="HomeBtn" onclick="HomeBtn()">Go to Home</button>
                             
                         </ol>
-                        <div class="card mb-4" id=" UserText" style="width: 500px;">
-                            <div class="card-body">
+                        <div  class="card mb-4" id=" UserText" style="width: 500px;">
+                            <div class="card-body" id="Profile">
                               <h3> User's Profile</h3>
-                          
+                              <img style="width: 80px; height: 80px;" id="preview-image" src="./img/kakao_1.jpg">
                                 
                             </div>
                             <div class="ProFileBtn" style="margin-left: 10px;margin-bottom: 10px ;">
-                                <input id="PreFileBtn" type="button" value="Edit Profile">
-                                <input id="PreFileBtn" type="button" value="Log out">
+                                <input id="PreFileBtn" onClick = "showPopUp()"type="button" value="Edit Profile">
+                                <input id="PreFileBtn" onClick = "LogOutBtn()" type="button" value="Log out">
                             </div>
                             
                         </div>

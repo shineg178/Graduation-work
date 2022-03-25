@@ -12,6 +12,10 @@
   background : #e2e2e2;
   border-radius : 5px;
 }
+#layoutSidenav_content .ProFileBtn {
+    display: flex;
+    justify-content: center;
+}
 #layoutSidenav_content #HomeBtn{
     text-decoration : none;
     cursor: pointer;
@@ -19,4 +23,15 @@
     padding : 5px;
     background : #e2e2e2;
     border-radius : 5px;
+}
+#layoutSidenav_content #Profile{
+    display: flex;
+    justify-content: space-evenly;
+    
+
+}
+#layoutSidenav_content #Profile h3{
+    margin-top: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
