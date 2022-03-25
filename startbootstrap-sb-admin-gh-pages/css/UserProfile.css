@@ -1,0 +1,22 @@
+#layoutSidenav_content #UserText{
+    width: 500px;
+}
+#layoutSidenav_content .ProFileBtn #PreFileBtn{
+    margin-left: 10px;margin-bottom: 10px ;
+    font-size : 15px;
+  
+  text-decoration : none;
+  cursor: pointer;
+  border : 1px solid #333;
+  padding : 5px;
+  background : #e2e2e2;
+  border-radius : 5px;
+}
+#layoutSidenav_content #HomeBtn{
+    text-decoration : none;
+    cursor: pointer;
+    border : 1px solid #333;
+    padding : 5px;
+    background : #e2e2e2;
+    border-radius : 5px;
+}

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="./css/UserProfile.css">
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -109,18 +110,23 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">게시물</h1>
+                        <h1 class="mt-4">User's Profile</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">달력으로바로가기</a></li>
+                            <li class="breadcrumb-item" id="PageBtn">
+                                <button id="HomeBtn" onclick="HomeBtn()">Go to Home</button>
                             
                         </ol>
-                        <div class="card mb-4">
+                        <div class="card mb-4" id=" UserText">
                             <div class="card-body">
-                               User's Profile
-                              <input type="button" value="Edit Profile">
-                              <input type="button" value="Log out">
+                              <h3> User's Profile</h3>
+                          
                                 
                             </div>
+                            <div class="ProFileBtn" style="margin-left: 10px;margin-bottom: 10px ;">
+                                <input id="PreFileBtn" type="button" value="Edit Profile">
+                                <input id="PreFileBtn" type="button" value="Log out">
+                            </div>
+                            
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -162,22 +168,7 @@
                 </footer>
             </div>
         </div>
-        <script>
-            let today = new Date();   
-
-            let year = today.getFullYear(); // 년도
-            let month = today.getMonth() + 1;  // 월
-            let date = today.getDate();  // 날짜
-            let day = today.getDay();  // 요일
-
-            document.write(year + '/' + month + '/' + date)
-            document.write('<br>')
-            document.write(day);
-           const StoryDate =  document.getElementById("date");
-           const StoryDate2 = document.getElementById("date2");
-            StoryDate.innerText = `${year}.${month}.${date}`;
-            StoryDate2.innerText = `${year}.${month}.${date}`;
-        </script>
+        <script src="./js/UserProfile.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
