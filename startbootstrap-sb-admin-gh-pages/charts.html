@@ -13,7 +13,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+            <a class="navbar-brand ps-3" href="index.html">추억캘린더</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -41,15 +41,15 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
+                            
                             <a class="nav-link" href="index.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                달력
                             </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
+                                회원정보
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
@@ -89,64 +89,81 @@
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            
                             <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
+                                게시물
                             </a>
                             <a class="nav-link" href="tables.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                                친구
                             </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        추억캘린더
                     </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Charts</h1>
+                        <h1 class="mt-4">게시물</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Charts</li>
+                            <li class="breadcrumb-item"><a href="index.html">달력으로바로가기</a></li>
+                            
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                Chart.js is a third party plugin that is used to generate the charts in this template. The charts below have been customized - for further customization options, please visit the official
-                                <a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>
+                               스토리
+                                <a target="_blank" href="https://www.naver.com/">박진우,신은규,이준용</a>
                                 .
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-chart-area me-1"></i>
-                                Area Chart Example
+                                2022년 3월25일
                             </div>
-                            <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                    이준용(방금)
+                                </div>
+                                <img class="캡처1" src="./image/캡처2.PNG" alt="" width="50%" height="450">
+                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                            </div>
+
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                    이준용(1분전)
+                                </div>
+                                <img class="캡처1" src="./image/캡처3.PNG" alt="" width="50%" height="450">
+                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                            </div>
+
                         </div>
+                        
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
+                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                        박진우(3분전)
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+                                    <img class="캡처1" src="./image/캡처1.PNG" alt="" width="100%" height="450">
                                     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
-                                        <i class="fas fa-chart-pie me-1"></i>
-                                        Pie Chart Example
+                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                       신은규(5분전)
                                     </div>
-                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
+                                    <img class="캡처" src="./image/캡처.PNG" alt="" width="100%" height="450">
+                                    
                                     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                                 </div>
                             </div>
