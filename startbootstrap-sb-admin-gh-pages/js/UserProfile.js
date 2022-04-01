@@ -4,7 +4,7 @@ let year = today.getFullYear(); // 년도
 let month = today.getMonth() + 1;  // 월
 let date = today.getDate();  // 날짜
 let day = today.getDay();  // 요일
-const UserId = document.getElementById("UserId");
+const UserId = document.querySelector("#UserId");
 let UID = "박진우";
 document.write(year + '/' + month + '/' + date)
 document.write('<br>')
