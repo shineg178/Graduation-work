@@ -1,160 +1,129 @@
-// 휴대폰 번호 입력 부분
-function changePhone1(){
-  const phone1 = document.getElementById("phone1").value // 010
-  if(phone1.length === 3){
-      document.getElementById("phone2").focus();
-  }
-}
-function changePhone2(){
-  const phone2 = document.getElementById("phone2").value // 010
-  if(phone2.length === 4){
-      document.getElementById("phone3").focus();
-  }
-}
-function changePhone3(){
-  const phone3 = document.getElementById("phone3").value // 010
-  if(phone3.length === 4){
-    document.getElementById("sendMessage").focus();
-    document.getElementById("sendMessage").setAttribute("style","background-color:yellow;")
-    document.getElementById("sendMessage").disabled = false;
-  }
-}
+(function ($) {
+  // requestAnimationFrame Polyfill
+  (function () {
+      var lastTime = 0;
+      var vendors = ['ms', 'moz', 'webkit', 'o'];
 
-// 문자인증+타이머 부분
-function initButton(){
-document.getElementById("sendMessage").disabled = true;
-document.getElementById("completion").disabled = true;
-document.getElementById("certificationNumber").innerHTML = "000000";
-document.getElementById("timeLimit").innerHTML = "03:00";
-document.getElementById("sendMessage").setAttribute("style","background-color:none;")
-document.getElementById("completion").setAttribute("style","background-color:none;")
-}
+      for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+          window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+          window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+      }
 
-let processID = -1;
+      if (!window.requestAnimationFrame)
+          window.requestAnimationFrame = function (callback, element) {
+              var currTime = new Date().getTime();
+              var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+              var id = window.setTimeout(function () {
+                      callback(currTime + timeToCall);
+                  },
+                  timeToCall);
+              lastTime = currTime + timeToCall;
 
-const getToken = () => {
+              return id;
+          };
 
-// 인증확인 버튼 활성화
-document.getElementById("completion").setAttribute("style","background-color:yellow;")
-document.getElementById("completion").disabled = false;
+      if (!window.cancelAnimationFrame)
+          window.cancelAnimationFrame = function (id) {
+              clearTimeout(id);
+          };
+  }());
 
-if (processID != -1) clearInterval(processID);
-const token = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
-document.getElementById("certificationNumber").innerText = token;
-let time = 180;
-processID = setInterval(function () {
-  if (time < 0 || document.getElementById("sendMessage").disabled) {
-    clearInterval(processID);
-    initButton();
-    return;
-  }
-  let mm = String(Math.floor(time / 60)).padStart(2, "0");
-  let ss = String(time % 60).padStart(2, "0");
-  let result = mm + ":" + ss;
-  document.getElementById("timeLimit").innerText = result;
-  time--;
-}, 50);
-};
+  // Sakura function.
+  $.fn.sakura = function (options) {
+      // We rely on these random values a lot, so define a helper function for it.
+      function getRandomInt(min, max) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
 
-function checkCompletion(){
-alert("문자 인증이 완료되었습니다.")
-initButton();
-document.getElementById("completion").innerHTML="인증완료"
-document.getElementById("signUpButton").disabled = false;
-document.getElementById("signUpButton").setAttribute("style","background-color:yellow;")
-}
+      // Helper function to attach cross-browser events to an element.
+      var prefixes = ['moz', 'ms', 'o', 'webkit', ''];
+      var prefCount = prefixes.length;
 
+      function prefixedEvent(element, type, callback) {
+          for (var i = 0; i < prefCount; i++) {
+              if (!prefixes[i]) {
+                  type = type.toLowerCase();
+              }
 
-// 가입부분 체크
+              element.get(0).addEventListener(prefixes[i] + type, callback, false);
+          }
+      }
 
-function signUpCheck(){
+      // Defaults for the option object, which gets extended below.
+      var defaults = {
+          blowAnimations: ['blow-soft-left', 'blow-medium-left', 'blow-hard-left', 'blow-soft-right', 'blow-medium-right', 'blow-hard-right'],
+          className: 'sakura',
+          fallSpeed: 3,
+          maxSize: 14,
+          minSize: 9,
+          newOn: 300,
+          swayAnimations: ['sway-0', 'sway-1', 'sway-2', 'sway-3', 'sway-4', 'sway-5', 'sway-6', 'sway-7', 'sway-8']
+      };
 
-let email = document.getElementById("email").value
-let name = document.getElementById("name").value
-let password = document.getElementById("password").value
-let passwordCheck = document.getElementById("passwordCheck").value
-let area = document.getElementById("area").value
-let gender_man = document.getElementById("gender_man").checked
-let gender_woman = document.getElementById("gender_woman").checked
-let check = true;
+      var options = $.extend({}, defaults, options);
 
-// 이메일확인
-if(email.includes('@')){
-  let emailId = email.split('@')[0]
-  let emailServer = email.split('@')[1]
-  if(emailId === "" || emailServer === ""){
-    document.getElementById("emailError").innerHTML="이메일이 올바르지 않습니다."
-    check = false
-  }
-  else{
-    document.getElementById("emailError").innerHTML=""
-  }
-}else{
-  document.getElementById("emailError").innerHTML="이메일이 올바르지 않습니다."
-  check = false
-}
+      // Declarations.
+      var documentHeight = $(document).height();
+      var documentWidth = $(document).width();
+      var sakura = $('<div class="' + options.className + '" />');
 
+      // Set the overflow-x CSS property on the body to prevent horizontal scrollbars.
+      $('body').css({ 'overflow-x': 'hidden' });
 
-// 이름확인
-if(name===""){
-  document.getElementById("nameError").innerHTML="이름이 올바르지 않습니다."
-  check = false
-}else{
-  document.getElementById("nameError").innerHTML=""
-}
+      // Function that inserts new petals into the document.
+      var petalCreator = function () {
+          setTimeout(function () {
+              requestAnimationFrame(petalCreator);
+          }, options.newOn);
 
+          // Get one random animation of each type and randomize fall time of the petals.
+          var blowAnimation = options.blowAnimations[Math.floor(Math.random() * options.blowAnimations.length)];
+          var swayAnimation = options.swayAnimations[Math.floor(Math.random() * options.swayAnimations.length)];
+          var fallTime = (Math.round(documentHeight * 0.007) + Math.random() * 5) * options.fallSpeed;
 
-// 비밀번호 확인
-if(password !== passwordCheck){
-  document.getElementById("passwordError").innerHTML=""
-  document.getElementById("passwordCheckError").innerHTML="비밀번호가 동일하지 않습니다."
-  check = false
-}else{
-  document.getElementById("passwordError").innerHTML=""
-  document.getElementById("passwordCheckError").innerHTML=""
-}
+          var animations = 'fall ' + fallTime + 's linear 0s 1' + ', ' +
+              blowAnimation + ' ' + (((fallTime > 30 ? fallTime : 30) - 20) + getRandomInt(0, 20)) + 's linear 0s infinite' + ', ' +
+              swayAnimation + ' ' + getRandomInt(2, 4) + 's linear 0s infinite';
+          var petal = sakura.clone();
+          var size = getRandomInt(options.minSize, options.maxSize);
+          var startPosLeft = Math.random() * documentWidth - 100;
+          var startPosTop = -((Math.random() * 20) + 15);
 
-if(password===""){
-  document.getElementById("passwordError").innerHTML="비밀번호를 입력해주세요."
-  check = false
-}else{
-  //document.getElementById("passwordError").innerHTML=""
-}
-if(passwordCheck===""){
-  document.getElementById("passwordCheckError").innerHTML="비밀번호를 다시 입력해주세요."
-  check = false
-}else{
-  //document.getElementById("passwordCheckError").innerHTML=""
-}
+          // Apply Event Listener to remove petals that reach the bottom of the page.
+          prefixedEvent(petal, 'AnimationEnd', function () {
+              $(this).remove();
+          });
+
+          // Apply Event Listener to remove petals that finish their horizontal float animation.
+          prefixedEvent(petal, 'AnimationIteration', function (ev) {
+              if ($.inArray(ev.animationName, options.blowAnimations) != -1) {
+                  $(this).remove();
+              }
+          });
+
+          petal
+              .css({
+                  '-webkit-animation': animations,
+                  '-o-animation': animations,
+                  '-ms-animation': animations,
+                  '-moz-animation': animations,
+                  animation: animations,
+                  height: size,
+                  left: startPosLeft,
+                  'margin-top': startPosTop,
+                  width: size
+              })
+              .appendTo('body');
+      };
 
 
-// 지역선택 확인
-if(area === "지역을 선택하세요."){
-  document.getElementById("areaError").innerHTML="지역을 선택해주세요."
-  check = false
-}else{
-  document.getElementById("areaError").innerHTML=""
-}
+      // Recalculate documentHeight and documentWidth on browser resize.
+      $(window).resize(function () {
+          documentHeight = $(document).height();
+          documentWidth = $(document).width();
+      });
 
-// 성별체크확인
-if(!gender_man && !gender_woman){
-  document.getElementById("genderError").innerHTML="성별을 선택해주세요."
-  check = false
-}else{
-  document.getElementById("genderError").innerHTML=""
-}
-
-if(check){
-  document.getElementById("emailError").innerHTML=""
-  document.getElementById("nameError").innerHTML=""
-  document.getElementById("passwordError").innerHTML=""
-  document.getElementById("passwordCheckError").innerHTML=""
-  document.getElementById("areaError").innerHTML=""
-  document.getElementById("genderError").innerHTML=""
-  
-  //비동기 처리이벤트
-  setTimeout(function() {
-    alert("가입이 완료되었습니다.")
-},0);
-}
-}
+      // Finally: Start adding petals.
+      requestAnimationFrame(petalCreator);
+  };
+}(jQuery));
