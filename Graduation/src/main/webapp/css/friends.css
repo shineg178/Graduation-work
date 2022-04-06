@@ -1,0 +1,16 @@
+
+main{font-family: 'SuncheonB'; }
+
+
+.friends{font-size:40px; margin:40px; width:80%; max-width:1000px; display:flex; justify-content: space-between; flex-direction: row;}
+.friends_list{margin:40px; list-style: none; width:80%; max-width:1000px; border:var(--bs-gray-500) solid 1px; border-radius:10px;}
+.friends_list li{font-size:25px; margin:10px; border-radius:10px; padding:5px;}
+.friends_list li:hover{background-color:var(--bs-gray-200); cursor:pointer;}
+.friends_list a{color:black;}
+.friends_list a:hover{color:black;}
+.friends_list a:link{text-decoration: none; color:black; }
+.friends_list img{border-radius:50%;width:40px;}
+
+.plus{font-size:20px; padding:15px;color:var(--bs-gray-800); text-decoration: none;  background-color:var(--bs-gray-200); border-radius:20px;}
+.plus:link{color:var(--bs-gray-800)}
+.plus:hover{color:var(--bs-gray-800); background-color:var(--bs-gray-400);}
